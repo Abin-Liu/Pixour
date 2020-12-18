@@ -15,29 +15,44 @@ namespace Pixour
 	{
 		Color m_color;
 		bool keydown = false;
+		bool m_hex;
+		bool m_lower;
 
 		public MainForm()
 		{
 			InitializeComponent();
+
+			RegistryHelper reg = new RegistryHelper();
+
+			reg.Open("Abin", ProductName);
+			m_hex = reg.ReadBool("Hexadecimal", false);
+			m_lower = reg.ReadBool("Lower Case", false);
+			reg.Close();
 		}
 
 		private void MainForm_Load(object sender, EventArgs e)
 		{
 			toolTip1.SetToolTip(pixourCtrl1, "Click on a pixel to show details");
-			toolTip1.SetToolTip(btnCopyDec, "Copy to clipboard");
-			toolTip1.SetToolTip(btnCopyHex, "Copy to clipboard");
-			toolTip1.SetToolTip(chkLowercase, "Display hexadecimal RGB in lower case");
+			toolTip1.SetToolTip(btnCopy, "Copy to clipboard");			
 
-			RegistryHelper reg = new RegistryHelper();
-			reg.Open("Abin", ProductName);
-			chkLowercase.Checked = reg.ReadBool("Lower Case", false);
-			reg.Close();
+			chkHex.Checked = m_hex;
+			chkLowercase.Checked = m_lower;
+			chkLowercase.Visible = m_hex;
 
-			pixourCtrl1.OnPixelClick = OnPixelClick;
+			pixourCtrl1.OnColorPick = OnColorPick;
 			OnStop();
 			timer1.Enabled = true;
 		}
-		
+
+		private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			RegistryHelper reg = new RegistryHelper();
+			reg.Open("Abin", ProductName, true);
+			reg.WriteBool("Hexadecimal", m_hex);
+			reg.WriteBool("Lower Case", m_lower);
+			reg.Close();
+		}
+
 		private void timer1_Tick(object sender, EventArgs e)
 		{
 			bool wasDown = keydown;
@@ -66,7 +81,7 @@ namespace Pixour
 			pixourCtrl1.Fetching = false;
 		}
 
-		void OnPixelClick(int x, int y, Color color)
+		void OnColorPick(Color color)
 		{			
 			m_color = color;
 			pictureBox1.BackColor = color;
@@ -75,34 +90,42 @@ namespace Pixour
 
 		void UpdateRGBValues()
 		{
-			txtDecValue.Text = string.Format("{0}, {1}, {2}", m_color.R, m_color.G, m_color.B);
-
-			string hex = string.Format("{0:X2}{1:X2}{2:X2}", m_color.R, m_color.G, m_color.B);
-			if (chkLowercase.Checked)
+			string text;
+			if (m_hex)
 			{
-				hex = hex.ToLower();
+				if (m_lower)
+				{
+					text = string.Format("{0:x2}{1:x2}{2:x2}", m_color.R, m_color.G, m_color.B);
+				}
+				else
+				{
+					text = string.Format("{0:X2}{1:X2}{2:X2}", m_color.R, m_color.G, m_color.B);
+				}				
 			}
-			txtHexValue.Text = hex;
+			else
+			{
+				text = string.Format("{0}, {1}, {2}", m_color.R, m_color.G, m_color.B);
+			}
+			
+			txtGRBValue.Text = text;
+		}
+
+		private void chkHex_CheckedChanged(object sender, EventArgs e)
+		{			
+			m_hex = chkHex.Checked;			
+			chkLowercase.Visible = m_hex;
+			UpdateRGBValues();
 		}
 
 		private void chkLowercase_CheckedChanged(object sender, EventArgs e)
 		{
-			RegistryHelper reg = new RegistryHelper();
-			reg.Open("Abin", ProductName, true);
-			reg.WriteBool("Lower Case", chkLowercase.Checked);
-			reg.Close();
-
+			m_lower = chkLowercase.Checked;
 			UpdateRGBValues();
 		}
 
 		private void btnCopyDec_Click(object sender, EventArgs e)
 		{
-			Clipboard.SetText(txtDecValue.Text);
-		}
-
-		private void btnCopyHex_Click(object sender, EventArgs e)
-		{
-			Clipboard.SetText(txtHexValue.Text);
-		}
+			Clipboard.SetText(txtGRBValue.Text);
+		}		
 	}
 }
