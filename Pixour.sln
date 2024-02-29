@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30804.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34018.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pixour", "Pixour\Pixour.csproj", "{A5DD67B8-598F-4392-8CA2-66AC4130D94A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixourCtrl", "PixourCtrl\PixourCtrl.csproj", "{E0251191-0AB7-460D-ACB1-E8FD56139942}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelBoard", "PixelBoard\PixelBoard.csproj", "{11816A52-8B05-44AA-90E2-78ADC8ED58AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{A5DD67B8-598F-4392-8CA2-66AC4130D94A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5DD67B8-598F-4392-8CA2-66AC4130D94A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5DD67B8-598F-4392-8CA2-66AC4130D94A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E0251191-0AB7-460D-ACB1-E8FD56139942}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E0251191-0AB7-460D-ACB1-E8FD56139942}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E0251191-0AB7-460D-ACB1-E8FD56139942}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E0251191-0AB7-460D-ACB1-E8FD56139942}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11816A52-8B05-44AA-90E2-78ADC8ED58AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11816A52-8B05-44AA-90E2-78ADC8ED58AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11816A52-8B05-44AA-90E2-78ADC8ED58AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11816A52-8B05-44AA-90E2-78ADC8ED58AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

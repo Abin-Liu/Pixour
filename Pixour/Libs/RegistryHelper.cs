@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Win32;
 
-namespace MFGLib
+namespace AbinLibs
 {
 	/// <summary>
 	/// A helper class providers convenient way to access registry values, the root key is always Registry.CurrentUser
